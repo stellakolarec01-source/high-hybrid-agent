@@ -1,0 +1,27 @@
+import openai
+import pyttsx3
+import speech_recognition as sr
+import random
+import time
+
+# Set your OpenAI API key here
+openai.api_key = "your-openai-api-key"
+
+# Initialize pyttsx3 (Text-to-Speech engine)
+engine = pyttsx3.init()
+
+# Configure the speech properties (optional)
+engine.setProperty('rate', 150)  # Speed of speech (default: 200)
+engine.setProperty('volume', 1)  # Volume (0.0 to 1.0)
+
+# Fun quirky responses
+quirky_responses = [
+    "So, what are you wearing right now? Is it your 'go-to' outfit?",
+    "I bet you're wearing something *mysterious* right now, huh? What’s your vibe today?",
+    "What’s the most *ridiculous* piece of clothing you've ever worn, and why did you wear it?",
+    "Do you think clothes can tell a story about a person? What’s your outfit saying about you today?",
+    "Okay, so... What’s the weirdest habit you have when it comes to picking clothes?",
+    "Is there any clothing item you absolutely can't live without? Like, your 'lucky charm'?"
+]
+
+# Fun "turnin
