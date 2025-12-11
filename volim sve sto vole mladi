@@ -1,0 +1,35 @@
+import openai
+import pyttsx3
+import speech_recognition as sr
+import random
+import time
+import requests
+from bs4 import BeautifulSoup
+import json
+
+# Set your OpenAI API key here
+openai.api_key = "your-openai-api-key"
+
+# Initialize pyttsx3 (Text-to-Speech engine)
+engine = pyttsx3.init()
+
+# Configure the speech properties (optional)
+engine.setProperty('rate', 150)  # Speed of speech (default: 200)
+engine.setProperty('volume', 1)  # Volume (0.0 to 1.0)
+
+# Knowledge update URL for current trends (for example: Google Trends or Twitter API)
+TRENDS_API_URL = "https://trends.google.com/trends/api/dailytrends?geo=US"
+
+# Define chatbot's personality
+class ChatbotPersona:
+    def __init__(self):
+        self.focus = "chill and knowledgeable"
+        self.age_group_focus = "teenagers"
+
+    def adjust_for_age(self, age):
+        if age < 16:
+            self.focus = "playful and fun"
+        elif 16 <= age < 19:
+            self.focus = "intellectual and cool"
+        else:
+            self.focus = "mature
