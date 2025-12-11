@@ -1,0 +1,21 @@
+import openai
+import pyttsx3
+import speech_recognition as sr
+import random
+import time
+
+# Set your OpenAI API key here
+openai.api_key = "your-openai-api-key"
+
+# Initialize pyttsx3 (Text-to-Speech engine)
+engine = pyttsx3.init()
+
+# Configure the speech properties (optional)
+engine.setProperty('rate', 150)  # Speed of speech (default: 200)
+engine.setProperty('volume', 1)  # Volume (0.0 to 1.0)
+
+# The secret phrase for the owner to control the bot
+SECRET_PHRASE = "Kaj ti stara jede pastetu"
+OWNER_AUTH = "creator_password"  # A password or authentication key for the owner
+
+# List o
