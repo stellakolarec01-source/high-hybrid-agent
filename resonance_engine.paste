@@ -1,1 +1,22 @@
 copy-paste stub 
+import random
+
+# Dictionary to represent different emotions
+emotions = {
+    "happy": ["I'm feeling great today!", "Yay! Everything is awesome!", "Life is beautiful!", "I'm smiling right now! :)"],
+    "sad": ["I'm feeling a little down.", "It's not the best day...", "I could really use a hug.", "Everything feels gray..."],
+    "angry": ["I'm really upset right now!", "Why does everything seem so frustrating?!", "I'm fuming!", "I need to cool off..."],
+    "surprised": ["Whoa, that was unexpected!", "I didn't see that coming!", "I'm shocked!", "That took me by surprise!"],
+    "fear": ["I’m a bit anxious about this.", "I'm feeling nervous right now.", "My heart is racing... I'm scared.", "This is a bit too much for me..."],
+    "confused": ["I don’t really understand what's going on.", "Wait, what just happened?", "I’m so lost right now.", "This is really puzzling..."]
+}
+
+# Function to detect emotions in the user input
+def detect_emotion(message):
+    if "happy" in message.lower():
+        return "happy"
+    elif "sad" in message.lower():
+        return "sad"
+    elif "angry" in message.lower():
+        return "angry"
+    elif "surpris
