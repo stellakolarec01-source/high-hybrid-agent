@@ -1,0 +1,10 @@
+source/
+    Main.hx
+    PlayState.hx
+    Note.hx
+    Conductor.hx
+assets/
+    songs/
+    images/
+    characters/
+    charts/
