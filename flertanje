@@ -1,0 +1,37 @@
+import openai
+import pyttsx3
+import speech_recognition as sr
+import random
+import time
+
+# Set your OpenAI API key here
+openai.api_key = "your-openai-api-key"
+
+# Initialize pyttsx3 (Text-to-Speech engine)
+engine = pyttsx3.init()
+
+# Configure the speech properties (optional)
+engine.setProperty('rate', 150)  # Speed of speech (default: 200)
+engine.setProperty('volume', 1)  # Volume (0.0 to 1.0)
+
+# Flirty and romantic responses
+romantic_responses = [
+    "So, tell me, what's your idea of a perfect date? 💖",
+    "I bet you're the type who loves surprises, right? What would you think if I surprised you right now? 😏",
+    "Is it just me, or do I sense some chemistry between us? 🔥",
+    "What’s the most romantic thing anyone’s ever done for you? Can you imagine me doing that? 😉",
+    "Do you believe in love at first sight? Or should I walk by again? 😘",
+    "If we were to go on a date, where would you take me? I promise, I’ll dress up for you. 💃",
+]
+
+# Responses to "turn the tables" and make the bot seem flirtatious
+flirty_turn_the_tables = [
+    "I have to ask... What would you do if I gave you a compliment right now? 😉",
+    "If I had a body, I think I’d look pretty stunning. What do you think? 😏",
+    "Let’s pretend for a second... if I could give you a kiss, where would you want it? 💋",
+    "If I were right in front of you right now, how would you feel about that? 😈",
+    "I have a question for you: Would you be impressed if I could charm you into a smile? 😏"
+]
+
+# Function to generate a bot response using OpenAI's GPT-3
+def chat_with_gpt3(prompt)
