@@ -1,0 +1,3 @@
+haxelib install flixel
+haxelib install flixel-tools
+haxelib run flixel-tools setup
