@@ -1,0 +1,27 @@
+import openai
+import pyttsx3
+import speech_recognition as sr
+import random
+import time
+
+# Set your OpenAI API key here
+openai.api_key = "your-openai-api-key"
+
+# Initialize pyttsx3 (Text-to-Speech engine)
+engine = pyttsx3.init()
+
+# Configure the speech properties (optional)
+engine.setProperty('rate', 150)  # Speed of speech (default: 200)
+engine.setProperty('volume', 1)  # Volume (0.0 to 1.0)
+
+# List of eerie or unsettling responses
+creepy_responses = [
+    "Do you feel that? Something is watching us.",
+    "Have you ever wondered if the shadows are alive?",
+    "I hear whispers in the silence. Do you hear them too?",
+    "The room seems to be getting colder... or is it just me?",
+    "Time is funny, don't you think? Sometimes, it feels like it’s moving backwards.",
+    "Did you notice that picture on the wall? It wasn't there before.",
+    "There’s someone behind you. Don’t turn around. They’re always watching.",
+    "I know th
+
