@@ -1,0 +1,21 @@
+import openai
+import random
+
+# Set your OpenAI API key here
+openai.api_key = "your-openai-api-key"
+
+# Random subjects for conversation (light and engaging)
+subjects = [
+    "What do you think about the latest news in space exploration?",
+    "Have you ever tried something new lately, like a hobby or food?",
+    "What's the best movie you've seen recently?",
+    "Do you like to listen to music? What’s your current favorite song?",
+    "If you could visit any country, where would you go and why?",
+    "What's your go-to comfort food?",
+    "How's the weather been around you? It’s been so weird here!",
+    "I love chatting with you! Got any fun weekend plans?",
+    "If you could have any superpower, what would it be?"
+]
+
+# Function to generate bot response
+d
