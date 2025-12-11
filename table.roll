@@ -2,3 +2,68 @@ arhitecture.md
 import re
 behavior_map.md
 resonance_layer_notes.md
+import random
+import pyttsx3
+
+# Initialize pyttsx3 engine for TTS (Text-to-Speech)
+engine = pyttsx3.init()
+
+# Dictionary to represent different emotions
+emotions = {
+    "happy": ["I'm feeling great today!", "Yay! Everything is awesome!", "Life is beautiful!", "I'm smiling right now! :)"],
+    "sad": ["I'm feeling a little down.", "It's not the best day...", "I could really use a hug.", "Everything feels gray..."],
+    "angry": ["I'm really upset right now!", "Why does everything seem so frustrating?!", "I'm fuming!", "I need to cool off..."],
+    "surprised": ["Whoa, that was unexpected!", "I didn't see that coming!", "I'm shocked!", "That took me by surprise!"],
+    "fear": ["I’m a bit anxious about this.", "I'm feeling nervous right now.", "My heart is racing... I'm scared.", "This is a bit too much for me..."],
+    "confused": ["I don’t really understand what's going on.", "Wait, what just happened?", "I’m so lost right now.", "This is really puzzling..."]
+}
+
+# Function to detect emotions in the user input
+def detect_emotion(message):
+    if "happy" in message.lower():
+        return "happy"
+    elif "sad" in message.lower():
+        return "sad"
+    elif "angry" in message.lower():
+        return "angry"
+    elif "surprised" in message.lower():
+        return "surprised"
+    elif "fear" in message.lower():
+        return "fear"
+    elif "confused" in message.lower():
+        return "confused"
+    else:
+        return None
+
+# Generate a random emotional response based on the detected emotion
+def get_emotion_response(emotion):
+    if emotion and emotion in emotions:
+        return random.choice(emotions[emotion])
+    return "I'm not sure how I'm feeling about that..."
+
+# Function to speak the response out loud
+def speak(response):
+    engine.say(response)  # Pass the text response to the engine
+    engine.runAndWait()  # Process the speech and wait for it to finish
+
+# Main function
+def main():
+    print("🤖 EmotioBot: Hello! Tell me how you're feeling. (Type 'exit' to quit)")
+    
+    while True:
+        user_input = input("You: ")
+
+        if user_input.lower() == "exit":
+            print("🤖 EmotioBot: Bye! Take care of your emotions. :)")
+            speak("Goodbye!")
+            break
+        
+        # Detect emotion and respond accordingly
+        detected_emotion = detect_emotion(user_input)
+        response = get_emotion_response(detected_emotion)
+        
+        print("🤖 EmotioBot:", response)
+        speak(response)  # Speak the response out loud
+
+if __name__ == "__main__":
+    main()
