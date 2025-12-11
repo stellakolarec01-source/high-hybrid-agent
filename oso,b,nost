@@ -1,0 +1,27 @@
+import openai
+
+# Set your OpenAI API key here
+openai.api_key = "your-openai-api-key"
+
+# Function to interact with GPT-3/4 API
+def chat_with_gpt3(prompt):
+    response = openai.Completion.create(
+        engine="gpt-3.5-turbo",  # Or "gpt-4" if you have access
+        prompt=prompt,
+        max_tokens=150,  # Maximum tokens in response
+        temperature=0.85,  # Higher temperature for more creativity
+        top_p=1,
+        frequency_penalty=0.5,  # Helps with subject-switching by avoiding repetition
+        presence_penalty=0.3,  # Encourages the bot to engage with new topics
+        stop=None  # No stop condition to let the conversation flow
+    )
+    return response.choices[0].text.strip()
+
+# A simple function to maintain a conversation flow
+def start_conversation():
+    print("Chatbot: Hey! What's on your mind today?")
+    
+    # Keep track of conversation history for context
+    conversation_history = ""
+    
+    while Tr
