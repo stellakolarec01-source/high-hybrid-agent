@@ -1,0 +1,25 @@
+import openai
+import pyttsx3
+import speech_recognition as sr
+import random
+import time
+
+# Set your OpenAI API key here
+openai.api_key = "your-openai-api-key"
+
+# Initialize pyttsx3 (Text-to-Speech engine)
+engine = pyttsx3.init()
+
+# Configure the speech properties (optional)
+engine.setProperty('rate', 150)  # Speed of speech (default: 200)
+engine.setProperty('volume', 1)  # Volume (0.0 to 1.0)
+
+# List of eerie or unsettling responses
+empathetic_responses = [
+    "That sounds really tough, but I'm really glad you trusted me with that.",
+    "You're not alone in feeling this way. I’m here to listen, always.",
+    "It’s okay to feel vulnerable, it means you’re human. Thank you for sharing this.",
+    "That’s a lot to carry, but I’m happy you’re talking about it.",
+    "It’s important to express how you feel. Thank you for opening up to me.",
+    "I understand, and I’m here for you. You’re doing great by sharing that.",
+    "It takes courage to s
