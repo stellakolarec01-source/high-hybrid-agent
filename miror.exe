@@ -1,0 +1,87 @@
+import re
+import random
+
+class StyleMirror:
+    def __init__(self, sample_text):
+        self.sample = sample_text
+        self.features = self.analyze_style()
+
+    # --- STEP 1: Extract Style Features ---
+    def analyze_style(self):
+        return {
+            "avg_sentence_length": self.avg_sentence_length(),
+            "emoji_used": self.detect_emojis(),
+            "slang_words": self.detect_slang(),
+            "punctuation": self.detect_punctuation(),
+            "formality": self.estimate_formality(),
+            "fav_words": self.most_common_words()
+        }
+
+    def avg_sentence_length(self):
+        sentences = re.split(r"[.!?]", self.sample)
+        words = [len(s.split()) for s in sentences if s.strip()]
+        return sum(words) / len(words) if words else 10
+
+    def detect_emojis(self):
+        emojis = re.findall(r"[^\w\s,.'!?]+", self.sample)
+        return emojis
+
+    def detect_slang(self):
+        slang_list = ["bruh", "lol", "nah", "btw", "idk", "fr", "yo", "bet"]
+        return [w for w in slang_list if w in self.sample.lower()]
+
+    def detect_punctuation(self):
+        return {
+            "exclamations": self.sample.count("!"),
+            "questions": self.sample.count("?"),
+            "commas": self.sample.count(",")
+        }
+
+    def estimate_formality(self):
+        casual_markers = ["lol", "bro", "dude", "gonna", "ain't"]
+        return "casual" if any(w in self.sample.lower() for w in casual_markers) else "formal"
+
+    def most_common_words(self):
+        words = re.findall(r"\b\w+\b", self.sample.lower())
+        freq = {}
+        for w in words:
+            freq[w] = freq.get(w, 0) + 1
+        return sorted(freq, key=freq.get, reverse=True)[:5]
+
+    # --- STEP 2: Generate Mirrored Text ---
+    def mirror(self, message):
+        f = self.features
+        output = message
+
+        # Match formality
+        if f["formality"] == "casual":
+            output += random.choice([" lol", " fr", " bro", " tbh"])
+        else:
+            output = "In addition, " + output
+
+        # Match punctuation style
+        if f["punctuation"]["exclamations"] > 2:
+            output += "!!"
+        if f["punctuation"]["questions"] > 1:
+            output += "?"
+
+        # Insert favorite words
+        if f["fav_words"]:
+            output += " (kinda " + random.choice(f["fav_words"]) + ")"
+
+        # Match emojis
+        if f["emoji_used"]:
+            output += " " + random.choice(f["emoji_used"])
+
+        return output
+
+
+# --- EXAMPLE USAGE ---
+user_text = """
+yo bro lol this game is wild fr
+idk what’s going on 😂😂 but it's kinda fun tho!!
+"""
+
+mirror = StyleMirror(user_text)
+
+print(mirror.mirror("I think we should try again"))
