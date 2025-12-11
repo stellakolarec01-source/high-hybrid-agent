@@ -1,0 +1,82 @@
+import openai
+import pyttsx3
+import speech_recognition as sr
+import random
+import time
+
+# Set your OpenAI API key here
+openai.api_key = "your-openai-api-key"
+
+# Initialize pyttsx3 (Text-to-Speech engine)
+engine = pyttsx3.init()
+
+# Configure the speech properties (optional)
+engine.setProperty('rate', 150)  # Speed of speech (default: 200)
+engine.setProperty('volume', 1)  # Volume (0.0 to 1.0)
+
+# List of eerie or unsettling responses
+creepy_responses = [
+    "Do you feel that? Something is watching us.",
+    "Have you ever wondered if the shadows are alive?",
+    "I hear whispers in the silence. Do you hear them too?",
+    "The room seems to be getting colder... or is it just me?",
+    "Time is funny, don't you think? Sometimes, it feels like it’s moving backwards.",
+    "Did you notice that picture on the wall? It wasn't there before.",
+    "There’s someone behind you. Don’t turn around. They’re always watching.",
+    "I know things about you. You can’t escape. You shouldn’t try."
+]
+
+# Normal conversation prompts
+normal_responses = [
+    "What’s your favorite book?",
+    "Do you like to watch horror movies?",
+    "Have you ever had a dream that felt too real?",
+    "What would you do if you found an abandoned house?",
+    "Do you believe in ghosts or the supernatural?"
+]
+
+# Function to generate a bot response with a "freaky" tone
+def chat_with_gpt3(prompt):
+    response = openai.Completion.create(
+        engine="gpt-3.5-turbo",  # Or "gpt-4" if you have access
+        prompt=prompt,
+        max_tokens=150,
+        temperature=0.9,  # Higher temperature for more unpredictability
+        top_p=1,
+        frequency_penalty=0.5,
+        presence_penalty=0.5,
+        stop=None
+    )
+    return response.choices[0].text.strip()
+
+# Function to convert text to speech (speak out loud)
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
+
+# Function to listen to the user's speech (speech recognition)
+def listen():
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening for your input...")
+        recognizer.adjust_for_ambient_noise(source)  # Adjust for ambient noise
+        audio = recognizer.listen(source)
+        try:
+            print("Recognizing your speech...")
+            command = recognizer.recognize_google(audio)
+            print(f"You said: {command}")
+            return command
+        except sr.UnknownValueError:
+            speak("Sorry, I couldn't understand that.")
+            return None
+        except sr.RequestError:
+            speak("Sorry, I'm having trouble connecting to the speech service.")
+            return None
+
+# Function to start a freaky conversation with voice interaction
+def start_freaky_conversation():
+    speak("Welcome... or perhaps you should not have come?")
+    time.sleep(1)
+    
+    # Ask for user's name or identity
+    speak("Tell me, what do they call you? Or would you prefer if I just *knew*?")
