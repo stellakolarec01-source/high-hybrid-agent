@@ -1,0 +1,50 @@
+package;
+
+import flixel.FlxState;
+import flixel.FlxSprite;
+import flixel.FlxG;
+import flixel.FlxText;
+import flixel.util.FlxColor;
+import Note;
+import Conductor;
+
+class PlayState extends FlxState {
+    var notes:Array<Note> = [];
+    var songName:String = "test-song";
+
+    override public function create() {
+        super.create();
+
+        FlxG.bgColor = FlxColor.BLACK;
+
+        Conductor.loadSong(songName);
+
+        // load a character (player)
+        var bf = new FlxSprite(400, 300);
+        bf.loadGraphic("assets/characters/bf.png", true, 200, 200);
+        add(bf);
+
+        // chart load
+        var chart = Conductor.loadChart(songName);
+        for (noteData in chart) {
+            var n = new Note(noteData.time, noteData.lane);
+            notes.push(n);
+            add(n);
+        }
+    }
+
+    override public function update(elapsed:Float) {
+        super.update(elapsed);
+
+        Conductor.updateSongTime();
+
+        for (n in notes) {
+            n.updateNote();
+        }
+
+        // Input test
+        if (FlxG.keys.justPressed.LEFT) {
+            trace("Left hit");
+        }
+    }
+}
