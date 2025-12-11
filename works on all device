@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Wi-Fi File Transfer</title>
+
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 40px; }
+    #devices { margin: 20px; }
+  </style>
+</head>
+<body>
+
+  <h2>Universal Wi-Fi File Transfer</h2>
+
+  <input type="file" id="file" />
+  <button id="sendBtn">Send File</button>
+
+  <div id="status"></div>
+
+  <script>
+    const ws = new WebSocket("ws://" + location.host);
+
+    ws.onopen = () => {
+      document.getElementById("status").innerText = "Connected!";
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+
+      if (data.type === "file") {
+        const link = document.createElement("a");
+        link.href = data.url;
+        link.download = data.name;
+        link.innerText = "Download " + data.name;
+        document.body.appendChild(link);
+      }
+    };
+
+    document.getElementById("sendBtn").onclick = () => {
+      const fileInput = document.getElementById("file");
+      const file = fileInput.files[0];
+      if (!file) return alert("Select a file first!");
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const payload = {
+          type: "file",
+          name: file.name,
+          url: reader.result
+        };
+        ws.send(JSON.stringify(payload));
+      };
+      reader.readAsDataURL(file);
+    };
+  </script>
+
+</body>
+</html>
